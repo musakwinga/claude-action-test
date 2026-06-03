@@ -1,0 +1,23 @@
+name: Claude Code Action
+
+on:
+  issues:
+    types: [opened, edited]
+  issue_comment:
+    types: [created, edited]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  actions: read
+
+jobs:
+  claude:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: anthropics/claude-code-action@main
+        with:
+          triggerPhrase: "@claude"
+          anthropicApiKey: ${{ secrets.ANTHROPIC_API_KEY }}
